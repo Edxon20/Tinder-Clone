@@ -14,6 +14,11 @@ h2{
     font-family: 'Newsreader', sans-serif;
 }
 
+.primary-title{
+    font-size: 90px;
+    background-color: white;
+}
+
 .primary-button{
     color: #fff;
     text-transform: uppercase;
@@ -76,14 +81,21 @@ nav .nav-button:disabled{
         to bottom, 
         rgba(0,0,0, 0.65) 0%,
         rgba(0,0,0,0) 100%
-    )
+    ), url('images/backgroundImage.webp')
+}
+
+.home{
+    margin-top: 30vh;
 }
 
 
 /* Auth */
 
 .auth-modal {
-    postiton: absolute;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40px;
     top: 175px;
     margin-left: auto;
     margin-right: auto;
@@ -103,8 +115,12 @@ nav .nav-button:disabled{
     flex-direction: column;
 }
 
-.auth-modal input {
-    
+.auth-modal input[type=password],
+.auth-modal input[type=email]
+{
+    padding: 8px;
+    margin: 8px;
+    font-size: 17px;
 }
 
 

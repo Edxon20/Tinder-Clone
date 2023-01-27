@@ -1,17 +1,22 @@
 import { useState } from 'react'
 
-function AuthModal({ setShowModal }) {
+function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {    
 
     const handleClick = () => {
-
         setShowModal(false);
-
-    }
-
-    const isSignUp = true;
+    }    
 
     const handleSubmit = e => {
         e.preventDefault();
+        try{
+            if(isSignUp && ( password !==confirmPassword )){
+                setError('Passwords need to match!')
+            }
+
+            console.log('Make a post request to our database');
+        } catch (error){
+            console.log(error)
+        }
     }
 
     const [email, setEmail] = useState(null);
@@ -23,7 +28,7 @@ function AuthModal({ setShowModal }) {
 
     return (
         <div className='auth-modal'>
-            <div className='close-icon' onClick={handleClick}> X </div>
+            <div className='close-icon' onClick={handleClick}> Ⓧ </div>
             <h2>{isSignUp ? 'CREATE ACCOUNT' : 'LOG IN'}</h2>
             <p>By clicking Log In, you agree to our terms. Learn how we process your data in our Privacy Policy and Cookie Policy.</p>
             <form onSubmit={handleSubmit}>
@@ -45,8 +50,9 @@ function AuthModal({ setShowModal }) {
                     required={true}
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                
 
-                <input
+                {isSignUp && <input
                     type="password"
                     id="password-check"
                     name="password-check"
@@ -54,12 +60,15 @@ function AuthModal({ setShowModal }) {
                     required={true}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
+                }
 
-                <input 
+                 <input
                     className='secondary-button'
-                    type="submit"   
-                    value='Submit'              
+                    type="submit"
+                    value='Submit'
                 />
+
+
                 <p>{error}</p>
             </form>
 
