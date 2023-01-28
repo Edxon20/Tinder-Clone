@@ -297,5 +297,16 @@ nav .nav-button:disabled{
     width: 30%;
     text-align: left;
     z-index: 1;
+  }
+
+  .chat-container .chat-container-header {
+    background: linear-gradient(260deg, #fe3072, #ff5940);    
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-container .option{
 
   }
