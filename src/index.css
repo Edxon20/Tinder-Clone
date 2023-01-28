@@ -320,7 +320,8 @@ nav .nav-button:disabled{
     border-bottom: solid 4px rgb(187,187,187);
   }
 
-  .chat-container .profile{
+  .chat-container .profile,
+  .log-out-icon {
 
     display: flex;
     align-items: center;
@@ -335,3 +336,24 @@ nav .nav-button:disabled{
     overflow: hidden;
     margin: 10px;
   }
+
+  .img-container img {
+    width: 100%;
+  }
+
+
+  /* ---------- Chat Display ---------- */
+
+  .chat-display{
+    padding: 20px;
+    height: 60vh;
+    overflow-y: auto;
+  }
+
+  .chat-input{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  
