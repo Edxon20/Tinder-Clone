@@ -4,12 +4,32 @@ import Nav from '../components/Nav'
 
 function Onboarding() {
 
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  // } 
 
-  const handleChange = () => {
+  const[formData, setFormData] = useState({    
+    user_id: "",
+    first_name: "",
+    dob_day: "",
+    dob_month: "",
+    dob_year: "",
+    show_gender: false,
+    gender_identity: 'man',
+    gender_interest: 'woman',
+    email: '',
+    url: '',
+    about: '',
+    matches: []
+  })
 
+  const {user_id, first_name, dob_day, dob_month, dob_year, show_gender, gender_identity, gender_interest, email, url, about, matches} = formData;
+
+  const handleChange = (e) => {
+
+    const value = e.target.value
+
+    setFormData((prevState) =>({
+      ...prevState,
+      [name] : value
+    }))
   }
 
   return (
@@ -30,7 +50,7 @@ function Onboarding() {
             <input
               id='first_name'
               type="text"
-              name="first_name"
+              name={first_name}
               placeholder='First Name'
               required={true}
               value={""}
@@ -42,7 +62,7 @@ function Onboarding() {
               <input
                 id='dob_day'
                 type="number"
-                name="dob_day"
+                name={dob_day}
                 placeholder='DD'
                 required={true}
                 value={""}
@@ -52,7 +72,7 @@ function Onboarding() {
               <input
                 id='dob_month'
                 type="number"
-                name="dob_month"
+                name={dob_month}
                 placeholder='MM'
                 required={true}
                 value={""}
@@ -62,7 +82,7 @@ function Onboarding() {
               <input
                 id='dob_year'
                 type="number"
-                name="dob_year"
+                name={dob_year}
                 placeholder='YYYY'
                 required={true}
                 value={""}
@@ -71,24 +91,24 @@ function Onboarding() {
             </div>
 
             <label> Gender </label>
-            
+
             <div className='multiple-input-container' >
-              
-            <input
+
+              <input
                 id='man-gender-identity'
                 type="radio"
-                name="gender_identity"
+                name={gender_identity}
                 placeholder='DD'
                 value="woman"
                 onChange={handleChange}
                 checked={false}
               />
               <label htmlFor='man-gender-identity'> Man</label>
-              
+
               <input
                 id='woman-gender-identity'
                 type="radio"
-                name="gender_identity"
+                name={gender_identity}
                 placeholder='DD'
                 value="man"
                 onChange={handleChange}
@@ -99,43 +119,43 @@ function Onboarding() {
               <input
                 id='more-gender-identity'
                 type="radio"
-                name="gender_identity"
+                name={gender_identity}
                 placeholder='DD'
                 value="more"
                 onChange={handleChange}
                 checked={false}
               />
-              <label htmlFor='more-gender-identity'> More</label>             
+              <label htmlFor='more-gender-identity'> More</label>
             </div>
 
             <label htmlFor='show-gender'> Show gender on my profile</label>
             <input
-                id='show-gender'
-                type="checkbox"
-                name="show_gender"
-                placeholder='DD'                
-                onChange={handleChange}
-                checked={false}
-              />
+              id='show-gender'
+              type="checkbox"
+              name={show_gender}
+              placeholder='DD'
+              onChange={handleChange}
+              checked={false}
+            />
 
-              <label>Show me</label>
-              <div className='multiple-input-container'>
+            <label>Show me</label>
+            <div className='multiple-input-container'>
 
               <input
                 id='man-gender-interest'
                 type="radio"
-                name="gender_interest"
+                name={gender_interest}
                 placeholder='DD'
                 value="woman"
                 onChange={handleChange}
                 checked={false}
               />
               <label htmlFor='man-gender-identity'> Man</label>
-              
+
               <input
                 id='woman-gender-interest'
                 type="radio"
-                name="gender_interest"
+                name={gender_interest}
                 placeholder='DD'
                 value="man"
                 onChange={handleChange}
@@ -146,41 +166,41 @@ function Onboarding() {
               <input
                 id='everyone-gender-interest'
                 type="radio"
-                name="gender_interest"
+                name={gender_interest}
                 placeholder='DD'
                 value="everyone"
                 onChange={handleChange}
                 checked={false}
               />
-              <label htmlFor='more-gender-interest'> Every One</label>      
-              </div>
+              <label htmlFor='more-gender-interest'> Every One</label>
+            </div>
 
-              <label htmlFor='about'>About me</label>
-              <input 
-                id='about'
-                type="text"
-                name="about"
-                required = {true}
-                placeholder='I like cats and make money...'
-                value = {""}
-                onChange={handleChange}
-              />
-              <input 
-                type="submit"
-                value="SUBMIT"
+            <label htmlFor='about'>About me</label>
+            <input
+              id='about'
+              type="text"
+              name="about"
+              required={true}
+              placeholder='I like cats and make money...'
+              value={""}
+              onChange={handleChange}
+            />
+            <input
+              type="submit"
+              value="SUBMIT"
 
-              />
+            />
           </section>
 
           <section>
             <label htmlFor='about'>Profile Profile</label>
             <div className='photo-container'>
-              <input 
+              <input
                 type="url"
-                name="url"
+                name={url}
                 id="url"
                 onChange={handleChange}
-                required ={true}
+                required={true}
               />
             </div>
           </section>
