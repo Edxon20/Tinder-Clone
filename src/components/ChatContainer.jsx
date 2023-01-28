@@ -2,7 +2,19 @@ import React from 'react'
 
 function ChatContainer() {
   return (
-    <div>ChatContainer</div>
+    <div className='chat-container'>
+
+        <ChatHeader />
+
+        <div>
+            <button
+                className=''
+            > </button>
+        </div>
+
+
+
+    </div>
   )
 }
 
