@@ -46,8 +46,7 @@ function Dashboard() {
             const response = await axios.get('http://localhost:8000/user', {
                 params: {userId}
             })
-            setUser(response.data)
-            console.log(response.data)
+            setUser(response.data)            
         } catch (error) {
             console.log(error)
         }
@@ -58,12 +57,7 @@ useEffect(() => {
 
 }, [])
 
-  
 
-
-  
-
-  
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
@@ -74,7 +68,8 @@ useEffect(() => {
   }
 
   return (
-
+    <>
+    {user &&
     <div className='dashboard'>    
       <ChatContainer user={user}/>
       <div className='swiper-container'>
@@ -103,6 +98,8 @@ useEffect(() => {
 
 
     </div>
+    }
+    </>
   )
 }
 

@@ -35,6 +35,8 @@ function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {
             if(success && isSignUp) navigate('./onboarding')
             if(success && !isSignUp) navigate('./dashboard')
 
+            window.location.reload()
+
             //console.log('Make a post request to our database');
         } catch (error){
             console.log(error)
