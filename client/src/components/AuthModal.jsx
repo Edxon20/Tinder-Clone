@@ -1,8 +1,18 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie';
 
-function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {    
+function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {  
+    
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [error, setError] = useState(null);
+    const [cookies, setCookie,removeCookie] = useCookies(['user']);
+
+    let navigate = useNavigate()
+
 
     const handleClick = () => {
         setShowModal(false);
@@ -15,24 +25,24 @@ function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {
                 setError('Passwords need to match!')
                 return
             }
+            const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, {email,password})  
+            
+            // setCookie('Email', response.data.email)
+            // setCookie('UserId', response.data.userId)
+            setCookie('AuthToken', response.data.token)          
 
-            const response = await axios.post('http://localhost:8000/signup', {email,password})
-
-            const success = response.status === 201           
-            if(success) navigate('./onboarding')
+            const success = response.status === 201
+            if(success && isSignUp) navigate('./onboarding')
+            if(success && !isSignUp) navigate('./dashboard')
 
             //console.log('Make a post request to our database');
         } catch (error){
-            console.log(error)
+            console.log(error+'!!!!!!!')
         }
+        return
     }
 
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [confirmPassword, setConfirmPassword] = useState(null);
-    const [error, setError] = useState(null);
-
-    let navigate = useNavigate()
+    
     
     //console.log(email, password, confirmPassword)
 

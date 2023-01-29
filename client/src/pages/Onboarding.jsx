@@ -1,12 +1,15 @@
-import { useState } from 'react'
-import { Form } from 'react-router-dom'
-import Nav from '../components/Nav'
+import { useState } from 'react';
+import { Form } from 'react-router-dom';
+import Nav from '../components/Nav';
+import { useCookies } from 'react-cookie';
 
 function Onboarding() {
 
+  const [cookies, setCookie,removeCookie] = useCookies(['user']);
+
 
   const[formData, setFormData] = useState({    
-    user_id: "",
+    user_id: cookies.UserId,
     first_name: "",
     dob_day: "",
     dob_month: "",
@@ -14,7 +17,7 @@ function Onboarding() {
     show_gender: false,
     gender_identity: 'man',
     gender_interest: 'woman',
-    email: '',
+    email: cookies.email,
     url: '',
     about: '',
     matches: []
