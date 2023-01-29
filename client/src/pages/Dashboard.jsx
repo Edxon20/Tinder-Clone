@@ -1,9 +1,18 @@
 import TinderCard from "react-tinder-card"
 import { useState } from 'react'
 import ChatContainer from "../components/ChatContainer"
+import axios from 'axios'
+import { useEffect } from "react"
+import { useCookies } from 'react-cookie';
+
+
 
 function Dashboard() {
 
+  
+
+  const [user,setUser] = useState(null)
+  const [cookies, setCookie,removeCookie] = useCookies(['user']);
   const characters = [
     {
       name: 'Richard Hendricks',
@@ -26,9 +35,35 @@ function Dashboard() {
       url: 'https://i.imgur.com/H07Fxdh.jpeg'
     }
   ]
-
   const [lastDirection, setLastDirection] = useState()
+  const userId = cookies.UserId 
 
+  //DONT FOUL the await because this make error 
+
+ 
+ const getUser = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/user', {
+                params: {userId}
+            })
+            setUser(response.data)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+useEffect(() => {
+  getUser()
+
+}, [])
+
+  
+
+
+  
+
+  
   const swiped = (direction, nameToDelete) => {
     console.log('removing: ' + nameToDelete)
     setLastDirection(direction)
@@ -39,9 +74,9 @@ function Dashboard() {
   }
 
   return (
-    <div className='dashboard'>
 
-      <ChatContainer />
+    <div className='dashboard'>    
+      <ChatContainer user={user}/>
       <div className='swiper-container'>
         <div>
           <div className='card-container'>
