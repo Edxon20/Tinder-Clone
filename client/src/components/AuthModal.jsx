@@ -28,7 +28,7 @@ function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {
             const response = await axios.post(`http://localhost:8000/${isSignUp ? 'signup' : 'login'}`, {email,password})  
             
             // setCookie('Email', response.data.email)
-            // setCookie('UserId', response.data.userId)
+            setCookie('UserId', response.data.userId)
             setCookie('AuthToken', response.data.token)          
 
             const success = response.status === 201
@@ -37,7 +37,7 @@ function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {
 
             //console.log('Make a post request to our database');
         } catch (error){
-            console.log(error+'!!!!!!!')
+            console.log(error)
         }
         return
     }

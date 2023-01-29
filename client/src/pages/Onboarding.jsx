@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Form } from 'react-router-dom';
 import Nav from '../components/Nav';
 import { useCookies } from 'react-cookie';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function Onboarding() {
 
   const [cookies, setCookie,removeCookie] = useCookies(['user']);
-
+  
 
   const[formData, setFormData] = useState({    
     user_id: cookies.UserId,
@@ -17,7 +19,6 @@ function Onboarding() {
     show_gender: false,
     gender_identity: 'man',
     gender_interest: 'woman',
-    email: cookies.email,
     url: '',
     about: '',
     matches: []
@@ -40,6 +41,21 @@ function Onboarding() {
       [e.target.name] : e.target.value
   })
   }
+  let navigate = useNavigate()
+  const handleSubmit = async (e) => {
+
+    e.preventDefault()
+
+    try{
+      const response = await axios.put('http://localhost:8000/user', {formData})
+      const success = response.status === 200
+      
+      if(success) navigate('/dashboard')
+    } catch(err){
+      console.log(err)
+    }
+
+  }
 
   return (
     <>
@@ -52,7 +68,7 @@ function Onboarding() {
 
         <h2>CREATE ACCOUNT</h2>
 
-        <form onSubmit={e => e.preventDefault()} >
+        <form onSubmit={handleSubmit} >
           <section>
 
             <label htmlFor='first_name'> First Name</label>
@@ -197,7 +213,6 @@ function Onboarding() {
             <input
               type="submit"
               value="SUBMIT"
-
             />
           </section>
 
@@ -212,7 +227,7 @@ function Onboarding() {
                 required={true}
               />
               <div>
-                <img src={url}  alt="profile pic preview"/>
+                {formData.url && (<img src={url}  alt="profile pic preview"/>)} 
               </div>
             </div>
           </section>
