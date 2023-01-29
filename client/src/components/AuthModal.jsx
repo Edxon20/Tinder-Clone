@@ -18,8 +18,7 @@ function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {
 
             const response = await axios.post('http://localhost:8000/signup', {email,password})
 
-            const success = response.status === 201
-                
+            const success = response.status === 201           
             if(success) navigate('./onboarding')
 
             //console.log('Make a post request to our database');
