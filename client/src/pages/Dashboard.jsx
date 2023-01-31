@@ -69,6 +69,7 @@ useEffect(() => {
 
   return (
     <>
+    {/* To show the dashboard */}
     {user &&
     <div className='dashboard'>    
       <ChatContainer user={user}/>
@@ -88,6 +89,7 @@ useEffect(() => {
                 </div>
               </TinderCard>
             )}
+            {/* // For to add info in matches */}
             <div className="swipe-info">
               {lastDirection ? <p>You swiped {lastDirection}</p> : <p/>}
             </div>

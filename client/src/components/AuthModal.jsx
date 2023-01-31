@@ -35,6 +35,7 @@ function AuthModal({ setShowModal,  isSignUp, setIsSignUp,  }) {
             if(success && isSignUp) navigate('./onboarding')
             if(success && !isSignUp) navigate('./dashboard')
 
+            //Is this need to the cookies will be reader
             window.location.reload()
 
             //console.log('Make a post request to our database');
