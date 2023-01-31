@@ -185,5 +185,34 @@ app.get('/gendered-users', async(req, res) => {
 //  Add matches          
 // ------------------------------------------------------------------------------------
 
+app.put('/addmatch', async(req, res) => {
+
+    const client = new MongoClient(url)
+    const {userId, matchedUserId} = req.body.userId
+
+    try{
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const query = { user_id: userId }
+
+        const updateDocument = {
+            $push: { matches: {userId: matchedUserId }}
+        }
+
+        await users.updateOne(query, updateDocument)
+
+        
+
+
+
+    }
+        catch(error){
+            console.log(error)
+        }
+
+
+})
 
 app.listen(PORT,() => console.log('Server running on PORT ' + PORT))
