@@ -158,5 +158,32 @@ app.get('/user', async (req, res) => {
         await client.close()
     }
 })
+/////////////////////////////
+//           
+// ------------------------------------------------------------------------------------
+
+app.get('/gendered-users', async(req, res) => {
+    const client = new MongoClient(url)
+    const gender = req.query.gender
+    
+    try{
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+        const query = { gender_identity: gender }
+        const foundUsers = await users.find( query ).toArray()
+
+       
+        res.send(foundUsers)
+    } finally{
+        await client.close()
+    }        
+})
+
+
+/////////////////////////////
+//  Add matches          
+// ------------------------------------------------------------------------------------
+
 
 app.listen(PORT,() => console.log('Server running on PORT ' + PORT))

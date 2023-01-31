@@ -271,7 +271,7 @@ nav .nav-button:disabled{
   .card h3 {
     font-size: 40px;
     margin-top: 0;
-    color: #fff;
+    color: rgb(255, 0, 106);
   }
 
   .swipe {
