@@ -59,19 +59,19 @@ app.post('/signup', async (req, res) => {
 // --------------------------------------------------------
 // these can be used to template
 // Here returned the users
-app.get('/users', async(req, res) => {
-    const client = new MongoClient(url)
+// app.get('/users', async(req, res) => {
+//     const client = new MongoClient(url)
 
-    try{
-        await client.connect()
-        const database = client.db('app-data')
-        const users = database.collection('users')
-        const returnedUsers = await users.find().toArray()
-        res.send(returnedUsers)
-    } finally{
-        await client.close()
-    }        
-})
+//     try{
+//         await client.connect()
+//         const database = client.db('app-data')
+//         const users = database.collection('users')
+//         const returnedUsers = await users.find().toArray()
+//         res.send(returnedUsers)
+//     } finally{
+//         await client.close()
+//     }        
+// })
 // -----------------------------------------------------------
 
 app.post('/login', async (req, res) => {
@@ -206,3 +206,32 @@ app.put('/addmatch', async (req, res) => {
 })
 
 app.listen(PORT,() => console.log('Server running on PORT ' + PORT))
+
+// ------------------------------------------------------------------------------------------
+app.get('/users', async (req, res) => {
+    const client = new MongoClient(url)
+    const userIds = JSON.parse(req.query.userIds)
+
+    try {
+        await client.connect()
+        const database = client.db('app-data')
+        const users = database.collection('users')
+
+        const pipeline =
+            [
+                {
+                    '$match': {
+                        'user_id': {
+                            '$in': userIds
+                        }
+                    }
+                }
+            ]
+        console.log(pipeline)
+        const foundUsers = await users.aggregate(pipeline).toArray()        
+         res.json(foundUsers)
+
+    } finally {
+        await client.close()
+    }
+})
